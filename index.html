@@ -20,8 +20,6 @@
     </div>
   </nav>
 
-
-
   <div class="main-container">
 
     <div class="row">
@@ -135,21 +133,24 @@
     const results = document.querySelectorAll('.result-item');
 
     function filterResources() {
+      // Get all currently checked checkbox values
       const checkedValues = Array.from(checkboxes)
         .filter(cb => cb.checked)
         .map(cb => cb.value);
 
+      // Show/hide items based on matching data-category tags
       results.forEach(item => {
         const categories = item.getAttribute('data-category').split(' ');
         if (checkedValues.length === 0) {
-          item.style.display = 'block';
+          item.style.display = 'block'; // Show all if nothing is checked
         } else {
           const matches = checkedValues.some(val => categories.includes(val));
-          item.style.display = matches ? 'block' : 'none';
+          item.style.display = matches ? 'block' : 'none'; // Toggle display
         }
       });
     }
 
+    // Attach event listeners to checkboxes and the search button
     checkboxes.forEach(cb => cb.addEventListener('change', filterResources));
     document.getElementById('searchBtn').addEventListener('click', filterResources);
   </script>

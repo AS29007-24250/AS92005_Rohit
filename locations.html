@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Locations & Community - Plastic Tracker</title>
   <link rel="stylesheet" href="style.css">
+
   <script src="https://maps.googleapis.com/maps/api/js?key="></script>
 </head>
 <body>
+
   <nav class="navbar">
     <div class="logo">Plastic Tracker</div>
     <div class="search-box">
@@ -19,7 +21,6 @@
       <a href="index.html#contact-section">Contact</a>
     </div>
   </nav>
-
 
   <div class="main-container">
 
@@ -118,7 +119,9 @@
   </div>
 
   <script>
+    // Initialize Google Map functionality
     function init() {
+      // Map configuration settings (coords, zoom, controls)
       var mapOptions = {
         "center": {"lat": -36.9090214443805, "lng": 174.7467943880995},
         "clickableIcons": true,
@@ -138,9 +141,11 @@
         "zoomControl": true
       };
 
+      // Target the div and create the map
       var mapElement = document.getElementById('ez-map');
       var map = new google.maps.Map(mapElement, mapOptions);
 
+      // Marker 1 Setup
       var marker0 = new google.maps.Marker({
         title: "Drop off location 1",
         icon: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png",
@@ -151,6 +156,7 @@
       marker0.addListener('click', function () { infowindow0.open(map, marker0); });
       infowindow0.close();
 
+      // Marker 2 Setup
       var marker1 = new google.maps.Marker({
         title: "Drop off place 2",
         icon: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png",
@@ -161,6 +167,7 @@
       marker1.addListener('click', function () { infowindow1.open(map, marker1); });
       infowindow1.close();
 
+      // Marker 3 Setup
       var marker2 = new google.maps.Marker({
         title: "Drop off place 3",
         icon: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png",
@@ -171,6 +178,7 @@
       marker2.addListener('click', function () { infowindow2.open(map, marker2); });
       infowindow2.close();
 
+      // Marker 4 Setup
       var marker3 = new google.maps.Marker({
         title: "Drop off place 4",
         icon: "https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png",
@@ -181,14 +189,17 @@
       marker3.addListener('click', function () { infowindow3.open(map, marker3); });
       infowindow3.close();
 
+      // Keep map centered when window resizes
       window.addEventListener("resize", function() {
         var center = map.getCenter();
         google.maps.event.trigger(map, "resize");
         map.setCenter(center);
       });
     }
+    // Run map initialization on page load
     window.addEventListener('load', init);
 
+    // Text-based Location Filter Logic
     const searchInput = document.getElementById('categorySearch');
     const searchBtn = document.getElementById('locSearchBtn');
     const locItems = document.querySelectorAll('.loc-item');
@@ -196,16 +207,18 @@
     function filterLocations() {
       const query = searchInput.value.toLowerCase().trim();
 
+      // Loop through items and check if text matches user input
       locItems.forEach(item => {
         const text = item.textContent.toLowerCase();
         if (text.includes(query)) {
-          item.style.display = 'block';
+          item.style.display = 'block'; // Show matching items
         } else {
-          item.style.display = 'none';
+          item.style.display = 'none';  // Hide non-matching items
         }
       });
     }
 
+    // Attach event listeners to input field and search button
     if (searchInput && searchBtn) {
       searchInput.addEventListener('input', filterLocations);
       searchBtn.addEventListener('click', filterLocations);
