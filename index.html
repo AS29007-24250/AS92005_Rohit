@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plastic Waste & Sustainability - Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Plastic Tracker</div>
+    <div class="search-box">
+      <input type="text" placeholder="Search site...">
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="locations.html">Locations</a>
+      <a href="#contact-section">Contact</a>
+    </div>
+  </nav>
+
+  <div class="category-bar">
+    <button>Categories Dropdown</button>
+  </div>
+
+  <div class="main-container">
+
+    <div class="row">
+      <div class="card">
+        <h1>Waste Tracker</h1>
+        <p>Live Plastic Tracker</p>
+
+        <div class="tracker-box">
+          <iframe src="https://plasticbank.com/live-plastic-tracker/" title="Plastic Tracker"></iframe>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <p>Plastic Diverted: 9% (live count)</p>
+      </div>
+
+      <div class="card">
+        <h2>Eco-Tips</h2>
+        <div class="tip">
+          <strong>Eco Tip 1:</strong>
+          <p>Stop buying single use plastic bottles and get a reusable metal one.</p>
+        </div>
+        <div class="tip">
+          <strong>Eco Tip 2:</strong>
+          <p>Check the numbers inside the recycling symbol before throwing plastic out.</p>
+        </div>
+        <div class="tip">
+          <strong>Eco Tip 3:</strong>
+          <p>Try buying foods packaged in paper or cardboard instead of soft plastic.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-box">
+      <h2>Resource Finder</h2>
+      <div class="filter-controls">
+        <button class="btn" id="searchBtn">Search</button>
+        <label><input type="checkbox" class="resource-filter" value="dropoff"> Drop-off sites</label>
+        <label><input type="checkbox" class="resource-filter" value="soft"> Soft plastics</label>
+        <label><input type="checkbox" class="resource-filter" value="hard"> Hard plastics</label>
+        <label><input type="checkbox" class="resource-filter" value="paper"> Paper options</label>
+      </div>
+
+      <div class="resource-results" id="resourceResults" style="margin-top: 15px;">
+        <div class="inner-box result-item" data-category="dropoff hard">
+          <strong>Mt Roskill Recycling Center</strong>
+          <p>Types: Drop-off sites, Hard plastics</p>
+        </div>
+        <div class="inner-box result-item" data-category="soft dropoff">
+          <strong>Local Supermarket Soft Plastic Bin</strong>
+          <p>Types: Soft plastics, Drop-off sites</p>
+        </div>
+        <div class="inner-box result-item" data-category="paper">
+          <strong>Paper & Cardboard Depot</strong>
+          <p>Types: Paper options</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-box" id="contact-section">
+      <h2>Contact Information</h2>
+
+      <div class="row">
+        <div class="column">
+          <div class="inner-box">
+            <h3>Alternative Contact Methods</h3>
+            <p>Email 1: help@recycletoday.org</p>
+            <p>Email 2: support@recycletoday.org</p>
+          </div>
+
+          <div class="inner-box">
+            <h3>External Resources</h3>
+            <ul>
+              <li><a href="https://plasticbank.com/live-plastic-tracker/" target="_blank">Plastic Bank Live Tracker</a></li>
+              <li><a href="https://environment.govt.nz" target="_blank">Environment Ministry</a></li>
+              <li><a href="https://recycle.co.nz" target="_blank">NZ Recycling Guide</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="inner-box">
+            <h3>Contact Form</h3>
+            <form action="https://formspree.io/f/mdaqjyvj" method="POST">
+              <label>Name*:</label>
+              <input type="text" name="name" placeholder="(Field is required)" required>
+
+              <label>Email*:</label>
+              <input type="email" name="email" placeholder="(Field is required)" required>
+
+              <label>Message:</label>
+              <textarea name="message" rows="3"></textarea>
+
+              <label>CAPTCHA:</label>
+              <input type="text" name="captcha_ui" class="captcha-input">
+
+              <button type="submit" class="btn send-btn" style="margin-top: 10px;">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer-box">
+      footer
+    </footer>
+
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.resource-filter');
+    const results = document.querySelectorAll('.result-item');
+
+    function filterResources() {
+      const checkedValues = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      results.forEach(item => {
+        const categories = item.getAttribute('data-category').split(' ');
+        if (checkedValues.length === 0) {
+          item.style.display = 'block';
+        } else {
+          const matches = checkedValues.some(val => categories.includes(val));
+          item.style.display = matches ? 'block' : 'none';
+        }
+      });
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', filterResources));
+    document.getElementById('searchBtn').addEventListener('click', filterResources);
+  </script>
+
+</body>
+</html>
